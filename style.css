@@ -451,6 +451,7 @@ button:hover {
 .aircraftCard,
 .mapNode { position: relative; }
 
+.aircraftCard.isLocked::before,
 .aircraftCard.isTemporarilyUnlocked::before,
 .mapNode.isTemporarilyUnlocked::before {
   content: "";
@@ -920,6 +921,7 @@ button:disabled:hover {
 
 .aircraftCard:hover { z-index: 2; background: linear-gradient(165deg, #0c2633, #050b13 70%); }
 .aircraftCard.isSelected { border: 0; background: linear-gradient(165deg, rgba(20, 74, 56, 0.95), #06120e); box-shadow: inset 0 0 0 1px #65ff9a, inset 0 0 26px rgba(101, 255, 154, 0.08); }
+.aircraftCard.isLocked::before,
 .aircraftCard.isTemporarilyUnlocked::before { top: 10px; right: 10px; width: 27px; height: 27px; }
 
 .aircraftVisual { position: relative; height: 78px; overflow: hidden; border-bottom: 1px solid rgba(98, 140, 154, 0.22); color: var(--craft-color); }

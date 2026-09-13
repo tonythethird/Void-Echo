@@ -53,6 +53,7 @@ const STAGES = [
 let currentStageIndex = 0;
 const STAGE_UNLOCK_KEY = "voidEchoHighestUnlockedStage";
 const RESOURCE_SAVE_KEY = "voidEchoResources";
+const AIRCRAFT_SHOP_VERSION = 2;
 
 // Keep later levels and aircraft behind their normal progression requirements.
 const TEMPORARY_UNLOCK_ALL = false;
@@ -118,7 +119,8 @@ const resources = {
   gems: 0,
   completedStages: [],
   ownedAircraft: ["echo"],
-  selectedAircraft: "echo"
+  selectedAircraft: "echo",
+  aircraftShopVersion: AIRCRAFT_SHOP_VERSION
 };
 
 try {
@@ -142,6 +144,7 @@ try {
         : [];
 
     const savedOwned =
+      savedResources.aircraftShopVersion === AIRCRAFT_SHOP_VERSION &&
       Array.isArray(savedResources.ownedAircraft)
         ? savedResources.ownedAircraft
         : [];
@@ -160,6 +163,8 @@ try {
       resources.ownedAircraft.includes(savedResources.selectedAircraft)
         ? savedResources.selectedAircraft
         : "echo";
+
+    resources.aircraftShopVersion = AIRCRAFT_SHOP_VERSION;
   }
 } catch (err) {}
 
