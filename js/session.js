@@ -75,6 +75,28 @@ if (enterMenuButton) {
     revealLevelMap;
 }
 
+const mapBackButton =
+  document.getElementById("mapBackButton");
+
+function showLandingScreen() {
+  const startScreen = document.getElementById("startScreen");
+  const levelMap = document.querySelector(".levelMap");
+  const levelPrompt = document.getElementById("levelPrompt");
+  const startSubtitle = document.getElementById("startSubtitle");
+  const controls = document.querySelector(".controls");
+
+  if (startScreen) startScreen.classList.remove("mapOpen");
+  if (levelMap) levelMap.classList.add("isHidden");
+  if (levelPrompt) levelPrompt.classList.add("isHidden");
+  if (enterMenuButton) enterMenuButton.classList.remove("isHidden");
+  if (startSubtitle) startSubtitle.classList.remove("isHidden");
+  if (controls) controls.classList.remove("isHidden");
+}
+
+if (mapBackButton) {
+  mapBackButton.onclick = showLandingScreen;
+}
+
 function updateLevelButtons() {
   STAGES.forEach((stage, stageIndex) => {
     const button =
@@ -89,27 +111,13 @@ function updateLevelButtons() {
     const unlocked =
       isStageUnlocked(stageIndex);
 
-    const temporarilyUnlocked =
-      TEMPORARY_UNLOCK_ALL &&
-      stageIndex > highestUnlockedStageIndex;
-
     button.disabled =
       !unlocked;
-
-    button.classList.toggle(
-      "isTemporarilyUnlocked",
-      temporarilyUnlocked
-    );
 
     const status =
       document.getElementById(
         `stage${stageIndex + 1}Status`
       );
-
-    if (temporarilyUnlocked && status) {
-      status.textContent = "TEMPORARY ACCESS";
-      return;
-    }
 
     if (status) {
       status.textContent =

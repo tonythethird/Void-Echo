@@ -452,8 +452,7 @@ button:hover {
 .mapNode { position: relative; }
 
 .aircraftCard.isLocked::before,
-.aircraftCard.isTemporarilyUnlocked::before,
-.mapNode.isTemporarilyUnlocked::before {
+.mapNode:disabled::before {
   content: "";
   position: absolute;
   z-index: 8;
@@ -467,7 +466,7 @@ button:hover {
   pointer-events: none;
 }
 
-.mapNode.isTemporarilyUnlocked::before {
+.mapNode:disabled::before {
   top: -10px;
   right: -10px;
   width: 27px;
@@ -829,9 +828,11 @@ button:disabled:hover {
 
 .mapHeader { top: 0; height: 66px; border-bottom: 1px solid #193848; }
 .mapHeader h2 { margin: 0; color: #eaffff; font-size: 18px; letter-spacing: 4px; }
+.mapHeaderActions { display: flex; align-items: center; gap: 14px; }
 .mapLegend { color: #688b96; font-size: 8px; letter-spacing: 1px; }
 .mapLegend i { display: inline-block; width: 7px; height: 7px; margin: 0 5px 0 13px; border-radius: 50%; background: #18eaff; box-shadow: 0 0 7px #18eaff; }
 .mapLegend i:last-of-type { background: #ffb236; box-shadow: 0 0 7px #ffb236; }
+#mapBackButton { width: auto; min-height: 32px; margin: 0; padding: 6px 12px; border-color: #668792; color: #bcefff; font-size: 9px; }
 
 .mapFooter { bottom: 0; height: 42px; border-top: 1px solid #193848; color: #668792; font-size: 9px; letter-spacing: 2px; }
 .mapFooter b { color: #65ff9a; }
@@ -869,7 +870,7 @@ button:disabled:hover {
 #stage3Button { border-color: #a66bff; background: linear-gradient(135deg, #28164a, #0d0818); }
 #stage4Button { border-color: #ffb236; background: linear-gradient(135deg, #43270d, #140b04); }
 #stage5Button { border-color: #65ff9a; background: linear-gradient(135deg, #103f2a, #04140d); }
-.mapNode.isTemporarilyUnlocked::before { top: -12px; right: -12px; width: 25px; height: 25px; border-radius: 4px; }
+.mapNode:disabled::before { top: -12px; right: -12px; width: 25px; height: 25px; border-radius: 4px; }
 
 #aircraftShop {
   padding: 18px;
@@ -921,8 +922,7 @@ button:disabled:hover {
 
 .aircraftCard:hover { z-index: 2; background: linear-gradient(165deg, #0c2633, #050b13 70%); }
 .aircraftCard.isSelected { border: 0; background: linear-gradient(165deg, rgba(20, 74, 56, 0.95), #06120e); box-shadow: inset 0 0 0 1px #65ff9a, inset 0 0 26px rgba(101, 255, 154, 0.08); }
-.aircraftCard.isLocked::before,
-.aircraftCard.isTemporarilyUnlocked::before { top: 10px; right: 10px; width: 27px; height: 27px; }
+.aircraftCard.isLocked::before { top: 10px; right: 10px; width: 27px; height: 27px; }
 
 .aircraftVisual { position: relative; height: 78px; overflow: hidden; border-bottom: 1px solid rgba(98, 140, 154, 0.22); color: var(--craft-color); }
 .aircraftVisual > span { position: absolute; left: 0; bottom: 8px; color: #628c9a; font-size: 7px; letter-spacing: 2px; }
