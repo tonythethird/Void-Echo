@@ -89,9 +89,8 @@ function updateAircraftShop() {
   Object.entries(AIRCRAFT_CATALOG).forEach(([id, aircraft]) => {
     const owned = resources.ownedAircraft.includes(id);
     const selected = resources.selectedAircraft === id;
-    const temporarilyUnlocked = TEMPORARY_UNLOCK_ALL && !owned;
     const card = document.createElement("article");
-    card.className = `aircraftCard${selected ? " isSelected" : ""}${!owned ? " isLocked" : ""}${temporarilyUnlocked ? " isTemporarilyUnlocked" : ""}`;
+    card.className = `aircraftCard${selected ? " isSelected" : ""}${!owned ? " isLocked" : ""}`;
     card.style.setProperty("--craft-color", aircraft.color);
     card.innerHTML = `
       <div class="aircraftVisual" style="--craft-color:${aircraft.color}">
@@ -114,9 +113,7 @@ function updateAircraftShop() {
       ? "EQUIPPED"
       : owned
         ? "EQUIP"
-        : temporarilyUnlocked
-          ? "TEMP EQUIP"
-          : `${aircraft.price} COINS`;
+        : `${aircraft.price} COINS`;
     button.disabled = selected;
     button.onclick = () => buyOrEquipAircraft(id);
     card.appendChild(button);
@@ -129,14 +126,6 @@ function buyOrEquipAircraft(id) {
   if (!aircraft) return;
 
   if (!resources.ownedAircraft.includes(id)) {
-    if (TEMPORARY_UNLOCK_ALL) {
-      resources.selectedAircraft = id;
-      applySelectedAircraft();
-      updateResourceHUD();
-      updateAircraftShop();
-      return;
-    }
-
     const price = Math.max(0, Math.floor(aircraft.price));
     if (resources.coins < price) {
       const balance = document.getElementById("shopBalance");

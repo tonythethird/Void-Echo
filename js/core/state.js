@@ -55,9 +55,6 @@ const STAGE_UNLOCK_KEY = "voidEchoHighestUnlockedStage";
 const RESOURCE_SAVE_KEY = "voidEchoResources";
 const AIRCRAFT_SHOP_VERSION = 2;
 
-// Keep later levels and aircraft behind their normal progression requirements.
-const TEMPORARY_UNLOCK_ALL = false;
-
 const AIRCRAFT_CATALOG = Object.freeze({
   echo: Object.freeze({
     name: "ECHO MK-I",
@@ -249,11 +246,8 @@ if (
 
 function isStageUnlocked(stageIndex) {
   return (
-    TEMPORARY_UNLOCK_ALL ||
-    (
-      stageIndex >= 0 &&
-      stageIndex <= highestUnlockedStageIndex
-    )
+    stageIndex >= 0 &&
+    stageIndex <= highestUnlockedStageIndex
   );
 }
 
