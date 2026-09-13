@@ -91,7 +91,7 @@ function updateAircraftShop() {
     const selected = resources.selectedAircraft === id;
     const temporarilyUnlocked = TEMPORARY_UNLOCK_ALL && !owned;
     const card = document.createElement("article");
-    card.className = `aircraftCard${selected ? " isSelected" : ""}${temporarilyUnlocked ? " isTemporarilyUnlocked" : ""}`;
+    card.className = `aircraftCard${selected ? " isSelected" : ""}${!owned ? " isLocked" : ""}${temporarilyUnlocked ? " isTemporarilyUnlocked" : ""}`;
     card.style.setProperty("--craft-color", aircraft.color);
     card.innerHTML = `
       <div class="aircraftVisual" style="--craft-color:${aircraft.color}">
