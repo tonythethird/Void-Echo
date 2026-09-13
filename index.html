@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VOID//ECHO</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="gameContainer">
+
+  <canvas id="gameCanvas" width="960" height="540"></canvas>
+
+  <div id="resourceBar" aria-label="Player rewards">
+    <button class="resourceButton" type="button" title="Coins">
+      <img src="assets/ui/coins-black.png" alt="">
+      <span id="coinCount">0</span>
+    </button>
+
+    <button class="resourceButton" type="button" title="Trophies">
+      <img src="assets/ui/trophy-black.png" alt="">
+      <span id="trophyCount">0</span>
+    </button>
+
+    <button class="resourceButton" type="button" title="Gems">
+      <img src="assets/ui/gem.png" alt="">
+      <span id="gemCount">0</span>
+    </button>
+  </div>
+
+  <!-- HUD -->
+  <div id="hud">
+
+    <div class="hudBox">
+      <span id="hullText">HULL</span>
+      <div class="bar">
+        <div id="healthBar"></div>
+      </div>
+    </div>
+
+    <div class="hudBox">
+      <span id="energyText">ENERGY</span>
+      <div class="bar">
+        <div id="energyBar"></div>
+      </div>
+    </div>
+
+    <div id="ammoStatus" class="ammoStatus isEmpty">
+      <span>AMMO</span>
+      <strong>STANDARD</strong>
+    </div>
+
+    <div id="objective">
+      OBJECTIVE: REACH THE ALIEN CORE
+    </div>
+
+    <!-- Pause button -->
+    <button id="pauseButton">☰</button>
+
+  </div>
+
+  <!-- Message -->
+  <div id="message"></div>
+
+  <!-- START SCREEN -->
+  <div id="startScreen">
+
+    <h1>VOID<span>//</span>ECHO</h1>
+
+    <p id="startSubtitle">
+      THE MACHINE REMEMBERS.
+    </p>
+
+    <button id="enterMenuButton">
+      ENTER THE VOID
+    </button>
+
+    <p id="levelPrompt" class="isHidden">SELECT A LEVEL</p>
+
+    <button id="shopButton" type="button">AIRCRAFT SHOP</button>
+
+    <div class="levelMap isHidden" aria-label="Level map">
+      <header class="mapHeader">
+        <div>
+          <span class="eyebrow">VOID NAVIGATION / SECTOR 07</span>
+          <h2>MISSION ROUTE</h2>
+        </div>
+        <div class="mapLegend"><i></i> AVAILABLE <i></i> TEMP ACCESS</div>
+      </header>
+      <div class="mapSector stageOneSector" aria-hidden="true">
+        <span>VOID SECTOR MAP · ASCENDING SIGNAL</span>
+      </div>
+
+      <div class="mapSector stageTwoSector" aria-hidden="true">
+        <span>FINAL ASCENT · NULL CROWN</span>
+      </div>
+
+      <div class="mapPlanet planetOne" aria-hidden="true"></div>
+      <div class="mapPlanet planetTwo" aria-hidden="true"></div>
+
+      <svg class="mapRoute" viewBox="0 0 620 340" aria-hidden="true">
+        <path class="routeShadow" d="M96 286 C145 260 180 215 231 216 S310 275 361 266 S395 175 444 156 S505 105 544 66"></path>
+        <path class="routeLine" d="M96 286 C145 260 180 215 231 216 S310 275 361 266 S395 175 444 156 S505 105 544 66"></path>
+      </svg>
+
+      <i class="routeDot dotOne" aria-hidden="true"></i>
+      <i class="routeDot dotTwo" aria-hidden="true"></i>
+      <i class="routeDot dotThree" aria-hidden="true"></i>
+      <i class="routeDot dotFour" aria-hidden="true"></i>
+
+      <button id="stage1Button" class="mapNode">
+        <strong>01</strong>
+        <span>THE BREACH</span>
+        <small id="stage1Status">100 SIGNALS · 3 ACTIVE</small>
+      </button>
+
+      <button id="stage2Button" class="mapNode" disabled>
+        <strong>02</strong>
+        <span>CRIMSON CORE</span>
+        <small id="stage2Status">LOCKED</small>
+      </button>
+
+      <button id="stage3Button" class="mapNode" disabled>
+        <strong>03</strong>
+        <span>VIOLET RIFT</span>
+        <small id="stage3Status">LOCKED</small>
+      </button>
+
+      <button id="stage4Button" class="mapNode" disabled>
+        <strong>04</strong>
+        <span>SOLAR FORGE</span>
+        <small id="stage4Status">LOCKED</small>
+      </button>
+
+      <button id="stage5Button" class="mapNode" disabled>
+        <strong>05</strong>
+        <span>NULL CROWN</span>
+        <small id="stage5Status">LOCKED</small>
+      </button>
+
+      <footer class="mapFooter">
+        <span>SELECT A SIGNAL TO DEPLOY</span>
+        <span>CRAFT: <b id="mapAircraftName">ECHO MK-I</b></span>
+      </footer>
+    </div>
+
+    <div class="controls">
+      <b>WASD</b> / Arrow Keys — Move<br>
+      <b>SPACE</b> — Shoot<br>
+      <b>E</b> — Activate Echo
+    </div>
+
+  </div>
+
+  <div id="aircraftShop" class="isHidden" aria-label="Aircraft shop">
+    <div class="shopPanel">
+      <button id="closeShopButton" type="button" aria-label="Close shop">X</button>
+      <header class="shopHeader">
+        <div><span class="eyebrow">VOID FLEET / HANGAR</span><h2>AIRCRAFT SHOP</h2></div>
+        <div class="shopWallet"><span>AVAILABLE FUNDS</span><strong id="shopBalance">0 COINS</strong></div>
+      </header>
+      <div id="aircraftGrid"></div>
+      <footer class="shopFooter">
+        <span>SELECTED CRAFT</span>
+        <strong id="selectedAircraftName">ECHO MK-I</strong>
+        <small>Every advantage is balanced by a hull, speed, or energy tradeoff.</small>
+      </footer>
+    </div>
+  </div>
+
+  <!-- PAUSE MENU -->
+  <div id="pauseMenu">
+
+    <div class="pausePanel">
+
+      <h2 id="pauseTitle">PAUSED</h2>
+
+      <button id="quitButton">QUIT</button>
+      <button id="resumeButton">RESUME</button>
+
+      <button id="soundButton">
+        SOUND: ON
+      </button>
+
+      <button id="musicButton">
+        MUSIC: ON
+      </button>
+
+      <div class="languageButtons">
+
+        <button id="englishButton">ENGLISH</button>
+        <button id="chineseButton">中文</button>
+        <button id="spanishButton">ESPAÑOL</button>
+        <button id="frenchButton">FRANÇAIS</button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- GAME OVER -->
+  <div id="gameOver">
+
+    <h1>SIGNAL LOST</h1>
+
+    <p id="gameOverText">
+      The alien machine has consumed your signal.
+    </p>
+
+    <button id="restartButton">
+      REBOOT
+    </button>
+
+    <button id="gameOverMenuButton">
+      MENU
+    </button>
+
+  </div>
+
+  <!-- VICTORY -->
+  <div id="victory">
+
+    <h1>THE CORE AWAKENS</h1>
+
+    <p>You were never the intruder.</p>
+
+    <p class="small">
+      You were the signal they were waiting for.
+    </p>
+
+    <button id="victoryButton">
+      MENU
+    </button>
+
+  </div>
+
+</div>
+
+<script src="js/core/state.js"></script>
+<script src="js/core/audio.js"></script>
+<script src="js/core/world.js"></script>
+<script src="js/core/input.js"></script>
+<script src="js/entities/player.js"></script>
+<script src="js/entities/projectiles.js"></script>
+<script src="js/entities/enemies.js"></script>
+<script src="js/entities/powerups.js"></script>
+<script src="js/engine/update.js"></script>
+<script src="js/rendering/renderer.js"></script>
+<script src="js/ui/interface.js"></script>
+<script src="js/session.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
