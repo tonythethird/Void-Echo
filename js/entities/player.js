@@ -149,21 +149,21 @@ function updatePlayer(dt) {
   let dx = 0;
   let dy = 0;
 
-  /* WASD STEERING */
+  /* WASD / ARROW KEY STEERING */
 
-  if (keys["w"]) {
+  if (keys["w"] || keys["arrowup"]) {
     dy--;
   }
 
-  if (keys["s"]) {
+  if (keys["s"] || keys["arrowdown"]) {
     dy++;
   }
 
-  if (keys["a"]) {
+  if (keys["a"] || keys["arrowleft"]) {
     dx--;
   }
 
-  if (keys["d"]) {
+  if (keys["d"] || keys["arrowright"]) {
     dx++;
   }
 
