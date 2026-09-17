@@ -34,27 +34,6 @@ window.addEventListener("keydown", e => {
     e.preventDefault();
   }
 
-  if (key === "u" && !e.repeat) {
-    highestUnlockedStageIndex = STAGES.length - 1;
-
-    resources.ownedAircraft = [
-      ...new Set([
-        ...resources.ownedAircraft,
-        ...Object.keys(AIRCRAFT_CATALOG)
-      ])
-    ];
-
-    updateLevelButtons();
-    updateAircraftShop();
-    updateResourceHUD();
-
-    if (gameRunning) {
-      showMessage("ALL LEVELS AND AIRCRAFT UNLOCKED");
-    }
-
-    return;
-  }
-
   if (!gameRunning) {
     return;
   }
